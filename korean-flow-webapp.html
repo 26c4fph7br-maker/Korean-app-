@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Korean Flow" />
+  <title>Korean Flow – iPhone Web-App</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root,[data-theme="light"]{--text-xs:clamp(.75rem,.7rem + .25vw,.875rem);--text-sm:clamp(.875rem,.8rem + .35vw,1rem);--text-base:clamp(1rem,.95rem + .25vw,1.08rem);--text-lg:clamp(1.125rem,1rem + .75vw,1.35rem);--text-xl:clamp(1.5rem,1.15rem + 1.4vw,2.1rem);--space-1:.25rem;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;--space-12:3rem;--radius-sm:.75rem;--radius-md:1rem;--radius-lg:1.35rem;--radius-xl:1.75rem;--radius-full:9999px;--color-bg:#f7f6f2;--color-surface:#fff;--color-surface-2:#f2f1ec;--color-border:#ddd8d2;--color-text:#222018;--color-text-muted:#6e6a63;--color-text-faint:#9d978f;--color-primary:#0b7a75;--color-primary-soft:#d9eeea;--color-accent:#f5b54c;--color-success:#4b7d2a;--color-danger:#b14455;--shadow-sm:0 6px 18px rgba(33,30,23,.08);--shadow-md:0 16px 40px rgba(33,30,23,.12);--font-body:'Plus Jakarta Sans',system-ui,sans-serif;--font-korean:'Noto Sans KR',sans-serif}
+    [data-theme="dark"]{--color-bg:#151513;--color-surface:#1d1d1a;--color-surface-2:#252420;--color-border:#34332f;--color-text:#f1eee8;--color-text-muted:#b7b2aa;--color-text-faint:#8a867f;--color-primary:#6bc8be;--color-primary-soft:#213533;--color-accent:#efbd66;--color-success:#8fb46b;--color-danger:#db7c8e;--shadow-sm:0 8px 24px rgba(0,0,0,.24);--shadow-md:0 20px 50px rgba(0,0,0,.35)}
+    *,:before,:after{box-sizing:border-box} html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth} body{margin:0;min-height:100dvh;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);font-size:var(--text-base);line-height:1.5} button,input,select{font:inherit} button{border:0;background:none;color:inherit} h1,h2,h3,p{margin:0} .app{max-width:430px;margin:0 auto;min-height:100dvh;padding:env(safe-area-inset-top) var(--space-4) calc(6rem + env(safe-area-inset-bottom));}
+    .topbar{position:sticky;top:0;z-index:20;padding:calc(var(--space-3) + env(safe-area-inset-top)) 0 var(--space-3);background:linear-gradient(to bottom,var(--color-bg) 78%,transparent)}
+    .row,.section-head,.lesson-actions,.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3)}
+    .logo{display:flex;align-items:center;gap:.8rem;font-weight:800}.logo-mark{width:40px;height:40px;border-radius:14px;background:linear-gradient(135deg,var(--color-primary),var(--color-accent));display:grid;place-items:center;box-shadow:var(--shadow-sm)}.logo-mark svg{width:22px;height:22px}
+    .icon-btn{width:44px;height:44px;border-radius:14px;background:var(--color-surface);display:grid;place-items:center;border:1px solid var(--color-border);box-shadow:var(--shadow-sm)}
+    .hero,.card,.phrase-card,.lesson-card,.quiz-box,.install-box,.speak-box,.review-card,.word-card{background:var(--color-surface);border:1px solid var(--color-border);box-shadow:var(--shadow-sm);border-radius:var(--radius-lg)}
+    .hero{background:linear-gradient(160deg,var(--color-surface),var(--color-primary-soft));padding:var(--space-6);display:grid;gap:var(--space-4);box-shadow:var(--shadow-md);border-radius:var(--radius-xl)}
+    .eyebrow,.tag,.tiny{font-size:var(--text-xs);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text-muted)} h1{font-size:var(--text-xl);line-height:1.08} .muted{color:var(--color-text-muted)} .hero p{max-width:32ch;color:var(--color-text-muted)}
+    .section{margin-top:var(--space-8);display:grid;gap:var(--space-4)} .section-head h2{font-size:var(--text-lg)} .pill,.tag{padding:.4rem .7rem;border-radius:var(--radius-full);background:var(--color-primary-soft);color:var(--color-primary)}
+    .btn{min-height:44px;padding:.85rem 1rem;border-radius:1rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:.55rem;flex:1}.btn-primary{background:var(--color-primary);color:#fff}.btn-secondary{background:var(--color-surface-2);color:var(--color-text)}
+    .grid{display:grid;gap:var(--space-3)} .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-3)} .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3)}
+    .card,.install-box,.quiz-box,.speak-box,.review-card,.word-card,.lesson-card,.phrase-card{padding:var(--space-4)}
+    .korean{font-family:var(--font-korean);font-weight:700}.xxl-korean{font-size:2rem}.word-card .korean{font-size:1.35rem}.phrase-card .korean{font-size:1.4rem}.roman{font-size:var(--text-sm);color:var(--color-text-muted)} .meaning{font-weight:700}
+    .lesson-card{display:grid;gap:var(--space-3)}
+    .progress-list{display:grid;gap:.65rem}.progress-item{display:flex;align-items:center;gap:.75rem}.bar{flex:1;height:10px;background:var(--color-surface-2);border-radius:999px;overflow:hidden}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--color-primary),var(--color-accent));border-radius:inherit}
+    .words{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-3)}
+    .flashcard{background:linear-gradient(180deg,var(--color-surface),var(--color-surface-2));border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-6);min-height:220px;display:grid;place-items:center;text-align:center;box-shadow:var(--shadow-md);cursor:pointer}.flashcard .front,.flashcard .back{display:none}.flashcard[data-side="front"] .front,.flashcard[data-side="back"] .back{display:block}.flashcard small{display:block;color:var(--color-text-faint);margin-top:var(--space-2)}
+    .option-list{display:grid;gap:.65rem;margin-top:var(--space-3)} .option{width:100%;min-height:48px;padding:.85rem 1rem;border-radius:1rem;background:var(--color-surface-2);text-align:left;border:1px solid transparent}.option.correct{background:color-mix(in srgb,var(--color-success) 18%, var(--color-surface));border-color:color-mix(in srgb,var(--color-success) 55%, var(--color-border))}.option.wrong{background:color-mix(in srgb,var(--color-danger) 14%, var(--color-surface));border-color:color-mix(in srgb,var(--color-danger) 55%, var(--color-border))}
+    .feedback,.status{font-size:var(--text-sm);color:var(--color-text-muted);min-height:1.35rem}
+    .speak-box{display:grid;gap:var(--space-3);background:linear-gradient(135deg,color-mix(in srgb,var(--color-accent) 22%, var(--color-surface)),var(--color-surface))}
+    .wave{display:flex;align-items:flex-end;gap:4px;height:28px}.wave span{width:5px;border-radius:999px;background:var(--color-primary);animation:wave 1.2s ease-in-out infinite}.wave span:nth-child(2){animation-delay:.15s}.wave span:nth-child(3){animation-delay:.3s}.wave span:nth-child(4){animation-delay:.45s}
+    .bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(430px,100%);padding:var(--space-3) var(--space-4) calc(var(--space-3) + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--color-bg) 86%, transparent);backdrop-filter:blur(14px)} .nav-shell{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-2);background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-2);border-radius:1.4rem;box-shadow:var(--shadow-md)} .nav-item{min-height:52px;border-radius:1rem;display:grid;place-items:center;gap:.15rem;color:var(--color-text-muted);font-size:12px;font-weight:700}.nav-item.active{background:var(--color-primary-soft);color:var(--color-primary)} .nav-item svg{width:18px;height:18px}
+    .install-box ol{padding-left:1.2rem;margin:.75rem 0 0} .install-box li{margin:.4rem 0} .hidden{display:none!important}
+    @keyframes wave{0%,100%{height:8px;opacity:.4}50%{height:28px;opacity:1}} @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="logo" aria-label="Korean Flow Logo">
+        <div class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 6h10"/><path d="M7 12h7"/><path d="M7 18h10"/><circle cx="17" cy="12" r="2.5" fill="currentColor" stroke="none"/></svg></div>
+        <div><div class="tiny">Lokal auf iPhone</div><div>Korean Flow</div></div>
+      </div>
+      <button class="icon-btn" data-theme-toggle aria-label="Zu dunklem Modus wechseln"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">Anfänger · Audio · Offline-Datei</div>
+      <h1>Koreanisch lernen direkt lokal auf dem iPhone.</h1>
+      <p>Diese Version ist für normales Web-Hosting gedacht und lässt sich in Safari auf dem iPhone öffnen und dann zum Home-Bildschirm hinzufügen.</p>
+      <div class="progress-list">
+        <div class="progress-item"><span class="tiny">Hangul</span><div class="bar"><span style="width:100%"></span></div></div>
+        <div class="progress-item"><span class="tiny">Wörter</span><div class="bar"><span style="width:78%"></span></div></div>
+        <div class="progress-item"><span class="tiny">Sätze</span><div class="bar"><span style="width:65%"></span></div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>Installieren</h2><span class="pill">iPhone</span></div>
+      <div class="install-box">
+        <p class="muted">Öffne die Datei auf dem iPhone in Safari, tippe auf Teilen, wähle „Zum Home-Bildschirm“ und aktiviere „Als Web-App öffnen“, damit sie app-ähnlich startet. [web:47][web:49][web:51]</p>
+        <ol>
+          <li>HTML-Datei per AirDrop, iCloud Drive oder Dateien-App auf das iPhone bringen.</li>
+          <li>In Safari öffnen.</li>
+          <li>Teilen → Zum Home-Bildschirm.</li>
+          <li>„Als Web-App öffnen“ aktivieren, falls angezeigt. [web:47]</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>Lernmodule</h2><span class="muted">A1 Start</span></div>
+      <div class="grid">
+        <article class="lesson-card">
+          <div class="row"><div><div class="tag">Modul 1</div><h3 style="margin-top:.6rem">Hangul verstehen</h3></div><span class="tag">24 Zeichen</span></div>
+          <p class="muted">Der Einstieg beginnt mit 14 Grundkonsonanten und 10 Grundvokalen, aus denen sich koreanische Silbenblöcke zusammensetzen. [web:33][web:35][web:42]</p>
+        </article>
+        <article class="lesson-card">
+          <div class="row"><div><div class="tag">Modul 2</div><h3 style="margin-top:.6rem">Erste Vokabeln</h3></div><span class="tag">20 Wörter</span></div>
+          <p class="muted">Danach folgen alltagsnahe Anfängerwörter wie yes, no, water, morning, today und tomorrow. [web:55]</p>
+        </article>
+        <article class="lesson-card">
+          <div class="row"><div><div class="tag">Modul 3</div><h3 style="margin-top:.6rem">Nützliche Sätze</h3></div><span class="tag">10 Sätze</span></div>
+          <p class="muted">Zum Sprechen eignen sich zuerst höfliche Phrasen für Begrüßung, Dank, Entschuldigung und einfache Alltagsfragen. [web:43][web:46][web:58]</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>Audio</h2><span class="pill">Safari</span></div>
+      <div class="speak-box">
+        <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        <p class="muted">Die App nutzt Text-to-Speech im Browser für koreanische Aussprache. Solche Sprachfunktionen sind in Safari grundsätzlich über Web-Speech/Web-Speech-nahe Browserfunktionen nutzbar, reagieren aber je nach iPhone-Konfiguration unterschiedlich. [web:52][web:54][web:57][web:60]</p>
+        <div class="lesson-actions">
+          <button class="btn btn-primary" id="speakCurrent">Aktuellen Satz anhören</button>
+          <button class="btn btn-secondary" id="stopSpeech">Stop</button>
+        </div>
+        <div class="status" id="audioStatus">Bereit für Audio.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>20 Vokabeln</h2><span class="muted">Anfänger</span></div>
+      <div class="words" id="wordList"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>10 Sätze</h2><span class="muted">Alltag</span></div>
+      <div class="grid" id="phraseList"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>Karteikarten</h2><span class="pill">Tippen</span></div>
+      <button class="flashcard" id="flashcard" data-side="front" aria-label="Karteikarte drehen">
+        <div class="front"><div class="korean xxl-korean" id="flashKo">안녕하세요</div><small id="flashHint">Was bedeutet das?</small></div>
+        <div class="back"><div class="meaning" id="flashDe" style="font-size:1.7rem">Hallo</div><small id="flashRo">annyeonghaseyo</small></div>
+      </button>
+      <div class="lesson-actions"><button class="btn btn-secondary" id="prevCard">Zurück</button><button class="btn btn-primary" id="nextCard">Nächste Karte</button></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>Mini-Quiz</h2><span class="muted">Lernen prüfen</span></div>
+      <div class="quiz-box">
+        <div class="tiny">Frage</div>
+        <h3 id="quizQuestion" style="margin-top:.35rem">Was bedeutet 감사합니다?</h3>
+        <div class="option-list" id="quizOptions"></div>
+        <div class="feedback" id="quizFeedback">Wähle eine Antwort.</div>
+        <div class="lesson-actions" style="margin-top:1rem"><button class="btn btn-secondary" id="nextQuiz">Nächste Frage</button><button class="btn btn-primary" id="hearQuiz">Frage anhören</button></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>Satztrainer</h2><span class="pill">Wiedergabe</span></div>
+      <div class="review-card">
+        <div class="korean xxl-korean" id="trainerKo">저는 독일에서 왔어요.</div>
+        <div class="roman" id="trainerRo">jeoneun dogileseo wasseoyo</div>
+        <p class="meaning" id="trainerDe">Ich komme aus Deutschland.</p>
+        <div class="lesson-actions" style="margin-top:1rem"><button class="btn btn-primary" id="playTrainer">Anhören</button><button class="btn btn-secondary" id="nextTrainer">Nächster Satz</button></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<nav class="bottom-nav" aria-label="Hauptnavigation">
+  <div class="nav-shell">
+    <button class="nav-item active" aria-label="Startseite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V21h14V9.8"/></svg><span>Start</span></button>
+    <button class="nav-item" aria-label="Wörter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>Wörter</span></button>
+    <button class="nav-item" aria-label="Quiz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M9.1 9a3 3 0 1 1 5.8 1c-.6 1.3-2 1.8-2.6 2.6-.3.4-.3.7-.3 1.4"/><circle cx="12" cy="17" r=".8" fill="currentColor" stroke="none"/></svg><span>Quiz</span></button>
+    <button class="nav-item" aria-label="Profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M5 20c1.7-3.3 4.1-5 7-5s5.3 1.7 7 5"/></svg><span>Profil</span></button>
+  </div>
+</nav>
+
+<script>
+const words=[
+{ko:'예',ro:'ye',de:'ja'},{ko:'아니요',ro:'aniyo',de:'nein'},{ko:'우리',ro:'uri',de:'wir'},{ko:'오늘',ro:'oneul',de:'heute'},{ko:'어제',ro:'eoje',de:'gestern'},{ko:'내일',ro:'naeil',de:'morgen'},{ko:'밤',ro:'bam',de:'Nacht'},{ko:'아침',ro:'achim',de:'Morgen'},{ko:'왜',ro:'wae',de:'warum'},{ko:'언제',ro:'eonje',de:'wann'},{ko:'물',ro:'mul',de:'Wasser'},{ko:'밥',ro:'bap',de:'Reis / Mahlzeit'},{ko:'과일',ro:'gwail',de:'Obst'},{ko:'사람',ro:'saram',de:'Person'},{ko:'친구',ro:'chingu',de:'Freund'},{ko:'학교',ro:'hakgyo',de:'Schule'},{ko:'집',ro:'jip',de:'Haus'},{ko:'책',ro:'chaek',de:'Buch'},{ko:'사랑',ro:'sarang',de:'Liebe'},{ko:'커피',ro:'keopi',de:'Kaffee'}
+];
+const phrases=[
+{ko:'안녕하세요',ro:'annyeonghaseyo',de:'Hallo'},
+{ko:'감사합니다',ro:'gamsahamnida',de:'Danke'},
+{ko:'죄송합니다',ro:'joesonghamnida',de:'Es tut mir leid'},
+{ko:'안녕히 가세요',ro:'annyeonghi gaseyo',de:'Tschüss, wenn die andere Person geht'},
+{ko:'안녕히 계세요',ro:'annyeonghi gyeseyo',de:'Tschüss, wenn du gehst'},
+{ko:'이름이 뭐예요?',ro:'ireumi mwoyeyo?',de:'Wie heißt du?'},
+{ko:'저는 독일에서 왔어요.',ro:'jeoneun dogileseo wasseoyo',de:'Ich komme aus Deutschland.'},
+{ko:'화장실이 어디예요?',ro:'hwajangsiri eodiyeyo?',de:'Wo ist die Toilette?'},
+{ko:'이거 얼마예요?',ro:'igeo eolmayeyo?',de:'Wie viel kostet das?'},
+{ko:'도와주세요',ro:'dowajuseyo',de:'Bitte helfen Sie mir'}
+];
+const quizData=[
+{q:'Was bedeutet 감사합니다?',a:['Hallo','Danke','Wasser'],correct:1,ko:'감사합니다'},
+{q:'Was bedeutet 물?',a:['Buch','Wasser','Morgen'],correct:1,ko:'물'},
+{q:'Was bedeutet 안녕하세요?',a:['Hallo','Entschuldigung','Schule'],correct:0,ko:'안녕하세요'},
+{q:'Was bedeutet 내일?',a:['gestern','heute','morgen'],correct:2,ko:'내일'},
+{q:'Was bedeutet 도와주세요?',a:['Bitte helfen Sie mir','Ich heiße','Gute Nacht'],correct:0,ko:'도와주세요'}
+];
+let flashIndex=0, phraseIndex=0, quizIndex=0;
+const root=document.documentElement;
+const toggle=document.querySelector('[data-theme-toggle]');
+let theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+root.setAttribute('data-theme',theme);
+function updateIcon(){toggle.innerHTML=theme==='dark'?'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>':'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';}
+updateIcon(); toggle.addEventListener('click',()=>{theme=theme==='dark'?'light':'dark';root.setAttribute('data-theme',theme);updateIcon();});
+function speak(text){const status=document.getElementById('audioStatus'); if(!('speechSynthesis' in window)){status.textContent='Audio wird auf diesem Gerät nicht unterstützt.'; return;} window.speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); u.lang='ko-KR'; u.rate=.85; u.pitch=1; u.onstart=()=>status.textContent='Spielt Audio ab …'; u.onend=()=>status.textContent='Fertig.'; u.onerror=()=>status.textContent='Audio konnte nicht abgespielt werden.'; window.speechSynthesis.speak(u);} 
+function renderWords(){const el=document.getElementById('wordList'); el.innerHTML=words.map(w=>`<article class="word-card"><div class="korean">${w.ko}</div><div class="roman">${w.ro}</div><div class="meaning">${w.de}</div><div class="lesson-actions" style="margin-top:.8rem"><button class="btn btn-secondary play-word" data-ko="${w.ko}">Audio</button></div></article>`).join(''); document.querySelectorAll('.play-word').forEach(b=>b.addEventListener('click',()=>speak(b.dataset.ko)));}
+function renderPhrases(){const el=document.getElementById('phraseList'); el.innerHTML=phrases.map((p,i)=>`<article class="phrase-card"><div class="row"><div><div class="korean">${p.ko}</div><div class="roman">${p.ro}</div></div><span class="tag">Satz ${i+1}</span></div><div class="meaning">${p.de}</div><div class="lesson-actions" style="margin-top:.8rem"><button class="btn btn-primary play-phrase" data-ko="${p.ko}">Anhören</button></div></article>`).join(''); document.querySelectorAll('.play-phrase').forEach(b=>b.addEventListener('click',()=>speak(b.dataset.ko)));}
+function showFlash(){const c=phrases[flashIndex]; document.getElementById('flashKo').textContent=c.ko; document.getElementById('flashDe').textContent=c.de; document.getElementById('flashRo').textContent=c.ro; document.getElementById('flashcard').dataset.side='front';}
+function showTrainer(){const c=phrases[phraseIndex]; document.getElementById('trainerKo').textContent=c.ko; document.getElementById('trainerRo').textContent=c.ro; document.getElementById('trainerDe').textContent=c.de;}
+function showQuiz(){const q=quizData[quizIndex]; document.getElementById('quizQuestion').textContent=q.q; const options=document.getElementById('quizOptions'); options.innerHTML=''; q.a.forEach((answer,i)=>{const btn=document.createElement('button'); btn.className='option'; btn.textContent=answer; btn.addEventListener('click',()=>{document.querySelectorAll('.option').forEach(o=>o.classList.remove('correct','wrong')); btn.classList.add(i===q.correct?'correct':'wrong'); document.getElementById('quizFeedback').textContent=i===q.correct?'Richtig.':'Nicht ganz. Richtige Antwort: '+q.a[q.correct];}); options.appendChild(btn);}); document.getElementById('quizFeedback').textContent='Wähle eine Antwort.';}
+renderWords(); renderPhrases(); showFlash(); showTrainer(); showQuiz();
+document.getElementById('flashcard').addEventListener('click',e=>{e.currentTarget.dataset.side=e.currentTarget.dataset.side==='front'?'back':'front';});
+document.getElementById('prevCard').addEventListener('click',()=>{flashIndex=(flashIndex-1+phrases.length)%phrases.length; showFlash();});
+document.getElementById('nextCard').addEventListener('click',()=>{flashIndex=(flashIndex+1)%phrases.length; showFlash();});
+document.getElementById('nextTrainer').addEventListener('click',()=>{phraseIndex=(phraseIndex+1)%phrases.length; showTrainer();});
+document.getElementById('playTrainer').addEventListener('click',()=>speak(phrases[phraseIndex].ko));
+document.getElementById('speakCurrent').addEventListener('click',()=>speak(phrases[phraseIndex].ko));
+document.getElementById('stopSpeech').addEventListener('click',()=>{if('speechSynthesis' in window){window.speechSynthesis.cancel(); document.getElementById('audioStatus').textContent='Gestoppt.';}});
+document.getElementById('nextQuiz').addEventListener('click',()=>{quizIndex=(quizIndex+1)%quizData.length; showQuiz();});
+document.getElementById('hearQuiz').addEventListener('click',()=>speak(quizData[quizIndex].ko));
+</script>
+</body>
+</html>
